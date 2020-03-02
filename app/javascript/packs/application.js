@@ -7,4 +7,28 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-console.log('Hello World from Webpacker')
+import Vue from 'vue'
+import App from '../App.vue'
+import VueLazyload from 'vue-lazyload'
+
+import  "../helpers/filters";
+
+export const eventBus = new Vue();
+
+Vue.use(VueLazyload, {
+  // preLoad: 1.3,
+  attempt: 2,
+  observer: true,
+  observerOptions: {
+    rootMargin: '10px 0px',
+    threshold: 0.25,
+  }
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+  const el = document.body.appendChild(document.createElement('application'))
+  const app = new Vue({
+    el,
+    render: h => h(App)
+  })
+})

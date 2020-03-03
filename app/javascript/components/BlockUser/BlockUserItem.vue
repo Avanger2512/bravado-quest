@@ -1,7 +1,5 @@
 <template>
-  <li
-    :class="['catalog__item', {'is-active': mark}]">
-
+  <li :class="['catalog__item', {'is-active': mark}]">
     <div
       v-lazy:background-image="item.avatar"
       class="catalog__image" />
@@ -34,7 +32,7 @@
 
       <div class="catalog__footer">
         <button
-          @click="updateMarkCondition(item.id)"
+          @click="updateMarkCondition()"
           class="catalog__text catalog__btn"
           type="button">
           {{ setMarkText }}
@@ -47,6 +45,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'BlockUserItem',
   props: {
@@ -55,14 +54,14 @@ export default {
     },
     onSearchEvent: {
       type: String
+    },
+    indexChangeEvent: {
+      type: Number
     }
   },
   mounted() {
     this.setMarkText;
-
-    if (this.item.hasOwnProperty('mark')) {
-      this.mark = true;
-    }
+    this.onCheckCondition();
   },
   data() {
     return {
@@ -73,13 +72,20 @@ export default {
   methods: {
     updateMarkCondition(index) {
       this.mark = !this.mark;
-
       this.$set(this.item, 'mark', this.mark);
+    },
+    onCheckCondition() {
+      this.mark = (this.item['mark']) ? true : false;
     }
   },
   computed: {
     setMarkText() {
       return (this.mark) ? this.buttonText[1] : this.buttonText[0]
+    }
+  },
+  watch: {
+    indexChangeEvent() {
+      this.onCheckCondition();
     }
   }
 }

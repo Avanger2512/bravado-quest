@@ -34,7 +34,7 @@
 
       <div class="catalog__footer">
         <button
-          @click="mark = !mark"
+          @click="updateMarkCondition(item.id)"
           class="catalog__text catalog__btn"
           type="button">
           {{ setMarkText }}
@@ -59,11 +59,22 @@ export default {
   },
   mounted() {
     this.setMarkText;
+
+    if (this.item.hasOwnProperty('mark')) {
+      this.mark = true;
+    }
   },
   data() {
     return {
       mark: false,
       buttonText: ['MARK AS SIUTABLE', 'SKIP SELECTION']
+    }
+  },
+  methods: {
+    updateMarkCondition(index) {
+      this.mark = !this.mark;
+
+      this.$set(this.item, 'mark', this.mark);
     }
   },
   computed: {

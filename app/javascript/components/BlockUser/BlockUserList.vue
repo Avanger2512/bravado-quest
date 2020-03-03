@@ -12,6 +12,7 @@
         v-for="(user, index) in users"
         :key="index"
         :item="user"
+        :indexChangeEvent="user.id"
         :onSearchEvent="userSearchString" />
 
     </virtual-list>
@@ -23,7 +24,7 @@
 </template>
 
 <script>
-import BlockUserItem from './BlockUserItem';
+import BlockUserItem from './BlockUserItem.vue';
 import virtualList from 'vue-virtual-scroll-list';
 import { eventBus } from '../../packs/application';
 
@@ -40,6 +41,9 @@ export default {
     },
     highlightKey: {
       type: String
+    },
+    searchParam: {
+      type: String
     }
   },
   data() {
@@ -48,6 +52,7 @@ export default {
     }
   },
   mounted() {
+    this.onSeachEvent(this.searchParam);
     eventBus.$on('searchQuery', this.onSeachEvent);
   },
   methods: {

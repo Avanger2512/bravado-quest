@@ -58,12 +58,9 @@ export default {
       axios.get('/users').then((response) => {
         this.loading = false;
         let users = response.data['data'];
-        // this.userList = users.slice(0, 80);
         this.userList = users;
 
-        setTimeout(() => {
-          this.setParamToSearch();
-        }, 300);
+        this.setParamToSearch();
 
       })
       .catch(function (error) {

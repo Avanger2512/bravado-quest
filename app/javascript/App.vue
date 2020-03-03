@@ -13,7 +13,8 @@
 
             <block-user-list
               v-else
-              :users="filteredUsers"/>
+              :users="filteredUsers"
+              :searchParam="searchUrlParam"/>
           </transition>
         </div>
 
@@ -26,9 +27,9 @@
 <script>
 
 import axios from 'axios';
-import BaseInput from "./components/Base/BaseInput";
-import BlockUserList from "./components/BlockUser/BlockUserList";
-import TheSpinner from "./components/TheSpinner";
+import BaseInput from "./components/Base/BaseInput.vue";
+import BlockUserList from "./components/BlockUser/BlockUserList.vue";
+import TheSpinner from "./components/TheSpinner/index.vue";
 
 import { eventBus } from './packs/application';
 
@@ -61,7 +62,6 @@ export default {
         this.userList = users;
 
         this.setParamToSearch();
-
       })
       .catch(function (error) {
         // handle error

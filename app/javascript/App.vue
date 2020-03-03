@@ -61,7 +61,9 @@ export default {
         // this.userList = users.slice(0, 80);
         this.userList = users;
 
-        this.setParamToSearch();
+        setTimeout(() => {
+          this.setParamToSearch();
+        }, 300);
 
       })
       .catch(function (error) {
